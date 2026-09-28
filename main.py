@@ -6,14 +6,14 @@ wf1 = Workflow("Workflow1")
 wf2 = Workflow("Workflow2")
 wf3 = Workflow("Workflow3")
 
-@step(wf1)
+
+@step(wf1,parents=["step3"],children=["step2"])
 def step1(context):
     print(context["workflow_name"])
     print("Executing step 1 of Workflow 1")
     return "Result from step 1"
 
 def main():
-
     print("Hello from bitter-burrito!")
 
 

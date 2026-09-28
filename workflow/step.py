@@ -4,21 +4,17 @@ from __future__ import annotations
 from workflow.workflow import Workflow
 
 class Step:
-    def __init__(self, name, fn:Callable[...,Any]):
+    def __init__(self, name, fn:Callable[...,Any],parents:list[str]=[],children:list[str]=[]):
         self.name = name
         self.fn = fn
+        self.parents = parents
+        self.children = children
 
-    def setParent(self, step:Step):
-        self.parent = step
+    def getParents(self)->list[str]:
+        return self.parents
 
-    def getParent(self):
-        return getattr(self, 'parent', None)
-
-    def setChildren(self, steps:list[Step]):
-        self.children = steps
-
-    def getChildren(self):
+    def getChildren(self)->list[str]:
         return self.children
      
-    def execute(self, *args, **kwargs):
-        return self.fn(*args, **kwargs)
+    def execute(self):
+        return self.fn()
